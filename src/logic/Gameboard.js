@@ -85,5 +85,17 @@ export const Gameboard = function (width, height) {
 		return true;
 	}
 
-	return { placeShip, receiveAttack, areAllSunk };
+	function getWidth() {
+		return width;
+	}
+
+	function getHeight() {
+		return height;
+	}
+
+	function getMap() {
+		return map;
+	}
+
+	return { placeShip, receiveAttack, areAllSunk, getWidth, getHeight, getMap };
 };
