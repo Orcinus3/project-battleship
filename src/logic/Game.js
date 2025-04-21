@@ -7,12 +7,12 @@ export const Game = function () {
 	const gameboard2 = player2.getGameboard();
 
 	gameboard1.placeShip(0, 0, 2, "horizontal");
-	gameboard1.placeShip(8, 10, 2, "horizontal");
+	gameboard1.placeShip(8, 9, 2, "horizontal");
 	gameboard1.placeShip(2, 2, 4, "vertical");
 	gameboard1.placeShip(5, 2, 4, "vertical");
 
 	gameboard2.placeShip(0, 0, 2, "horizontal");
-	gameboard2.placeShip(8, 10, 2, "horizontal");
+	gameboard2.placeShip(8, 9, 2, "horizontal");
 	gameboard2.placeShip(2, 2, 4, "vertical");
 	gameboard2.placeShip(5, 2, 4, "vertical");
 

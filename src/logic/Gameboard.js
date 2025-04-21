@@ -8,7 +8,7 @@ export const Gameboard = function (width, height) {
 		for (let i = 0; i < width; i++) {
 			const row = [];
 			for (let j = 0; j < height; j++) {
-				row.push(null);
+				row.push({ ship: null, x: i, y: j });
 			}
 			matrix.push(row);
 		}
@@ -25,7 +25,7 @@ export const Gameboard = function (width, height) {
 	}
 
 	function isOccupied(x, y) {
-		return !!map[x][y];
+		return !!map[x][y].ship;
 	}
 
 	function canBePlaced(x, y, length, direction) {
@@ -50,12 +50,12 @@ export const Gameboard = function (width, height) {
 
 		if (direction === "horizontal" && canBePlaced(x, y, shipLength, direction)) {
 			for (let i = x; i < shipLength + x; i++) {
-				map[i][y] = ship;
+				map[i][y].ship = ship;
 			}
 			return true;
 		} else if (direction === "vertical" && canBePlaced(x, y, shipLength, direction)) {
 			for (let i = y; i < shipLength + y; i++) {
-				map[x][i] = ship;
+				map[x][i].ship = ship;
 			}
 			return true;
 		}
@@ -66,9 +66,9 @@ export const Gameboard = function (width, height) {
 	function receiveAttack(x, y) {
 		const occupied = isOccupied(x, y);
 		if (occupied) {
-			map[x][y].hit();
+			map[x][y].ship.hit();
 		} else {
-			map[x][y] = false; //? distiguishes the hit tiles "false" from the "null" tiles
+			map[x][y].ship = false; //? distiguishes the hit tiles "false" from the "null" tiles
 		}
 
 		return occupied;
@@ -77,7 +77,7 @@ export const Gameboard = function (width, height) {
 	function areAllSunk() {
 		for (let i = 0; i < width; i++) {
 			for (let j = 0; j < height; j++) {
-				if (isOccupied(i, j) && !map[i][j].isSunk()) {
+				if (isOccupied(i, j) && !map[i][j].ship.isSunk()) {
 					return false;
 				}
 			}
