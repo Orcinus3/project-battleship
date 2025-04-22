@@ -4,7 +4,7 @@ let turn = 0;
 
 const game = Game();
 const player1 = game.getPlayer1();
-const player2 = game.getPlayer2();
+const player2 = game.getPlayer2(); //TODO make computer adversary
 
 const container1 = document.createElement("div");
 const container2 = document.createElement("div");
@@ -16,10 +16,10 @@ container2.classList.add("player2");
 document.body.appendChild(container1);
 document.body.appendChild(container2);
 
-const PlayerDOM = function (player, playerTurn) {
+const PlayerDOM = function (container, player, playerTurn) {
 	const gameboard = player.getGameboard();
 
-	function createGameboard(container) {
+	function createGameboard() {
 		const map = gameboard.getMap();
 		for (let j = 0; j < gameboard.getWidth(); j++) {
 			for (let i = 0; i < gameboard.getHeight(); i++) {
@@ -54,6 +54,7 @@ const PlayerDOM = function (player, playerTurn) {
 				} else if (ship !== null) {
 					if (ship.isSunk()) {
 						element.classList.add("sunk");
+						element.classList.toggle("hit");
 					} else {
 						element.classList.add("ship");
 					}
@@ -91,8 +92,36 @@ const PlayerDOM = function (player, playerTurn) {
 	return { createGameboard };
 };
 
-const playerDOM1 = PlayerDOM(player1, 0);
-const playerDOM2 = PlayerDOM(player2, 1);
+const ComputerDOM = function (container, computer, computerTurn) {
+	async function loop(enemyGameboard) {
+		while (true) {
+			await new Promise((resolve) => setTimeout(resolve, 1000));
+			if (turn === computerTurn) {
+				console.log("computer's turn");
+				attackEnemy(enemyGameboard);
+			}
+		}
+	}
 
-playerDOM1.createGameboard(container1);
-playerDOM2.createGameboard(container2);
+	function attackEnemy(enemyGameboard) {
+		const map = enemyGameboard.getMap();
+		const coords = computer.getNextAttack();
+		console.log(coords);
+		const x = coords.x;
+		const y = coords.y;
+		map[x][y].element.click();
+	}
+
+	const obj = PlayerDOM(container, computer, computerTurn);
+	obj.loop = loop;
+
+	return obj;
+};
+
+const playerDOM1 = PlayerDOM(container1, player1, 0);
+const playerDOM2 = ComputerDOM(container2, player2, 1);
+
+playerDOM1.createGameboard();
+playerDOM2.createGameboard();
+
+playerDOM2.loop(player2.getGameboard());

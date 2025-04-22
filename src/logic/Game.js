@@ -1,8 +1,8 @@
-import { Player } from "./Player";
+import { Computer, Player } from "./Player";
 
 export const Game = function () {
 	const player1 = Player();
-	const player2 = Player();
+	const player2 = Computer();
 	const gameboard1 = player1.getGameboard();
 	const gameboard2 = player2.getGameboard();
 
