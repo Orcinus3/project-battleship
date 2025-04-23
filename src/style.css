@@ -88,12 +88,21 @@ body {
 	height: 100%;
 	display: flex;
 	gap: 4rem;
+	flex-direction: column;
+}
+
+.containers {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	gap: 10%;
 }
 
 .container {
 	background-color: aliceblue;
-	width: 50%;
-	height: 50%;
+	width: 600px;
+	height: 600px;
 	display: flex;
 	flex-wrap: wrap;
 }
@@ -120,4 +129,41 @@ body {
 
 .sunk {
 	background-color: aqua;
+}
+
+.battleships {
+	display: flex;
+	gap: 2rem;
+	align-items: center;
+	background-color: white;
+	border: 4px solid black;
+	padding: 2rem;
+}
+
+.ship-container {
+	display: flex;
+	border: 1px solid white;
+	width: fit-content;
+	height: fit-content;
+
+	& > * {
+		padding: 1rem;
+		pointer-events: none;
+	}
+
+	.horizontal {
+		flex-direction: row;
+	}
+
+	&.vertical {
+		flex-direction: column;
+	}
+}
+
+.drop-zone {
+	background-color: antiquewhite;
+}
+
+.draggable {
+	opacity: 0.5;
 }

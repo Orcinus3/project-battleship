@@ -1,4 +1,5 @@
 import { Game } from "../logic/Game";
+import { dropPoint } from "./drag&drop";
 
 let turn = 0;
 
@@ -13,11 +14,20 @@ container1.classList.add("player1");
 container2.classList.add("container");
 container2.classList.add("player2");
 
-document.body.appendChild(container1);
-document.body.appendChild(container2);
+const containers = document.querySelector(".containers");
+containers.appendChild(container1);
+containers.appendChild(container2);
 
 const PlayerDOM = function (container, player, playerTurn) {
 	const gameboard = player.getGameboard();
+
+	function getGameboard() {
+		return gameboard;
+	}
+
+	function getContainer() {
+		return container;
+	}
 
 	function createGameboard() {
 		const map = gameboard.getMap();
@@ -43,6 +53,9 @@ const PlayerDOM = function (container, player, playerTurn) {
 	}
 
 	function refreshGameboard() {
+		if (gameboard.areAllSunk()) {
+			document.body.innerHTML = `Player ${playerTurn} won!`;
+		}
 		const map = gameboard.getMap();
 		for (let j = 0; j < gameboard.getWidth(); j++) {
 			for (let i = 0; i < gameboard.getHeight(); i++) {
@@ -65,7 +78,7 @@ const PlayerDOM = function (container, player, playerTurn) {
 
 	function initializeTileListener(tile) {
 		function handleClick() {
-			if (turn !== playerTurn) {
+			if (turn === playerTurn) {
 				console.log(turn);
 				return;
 			}
@@ -89,7 +102,7 @@ const PlayerDOM = function (container, player, playerTurn) {
 		tile.element.addEventListener("click", handleClick);
 	}
 
-	return { createGameboard };
+	return { createGameboard, getContainer, getGameboard, refreshGameboard };
 };
 
 const ComputerDOM = function (container, computer, computerTurn) {
@@ -124,4 +137,6 @@ const playerDOM2 = ComputerDOM(container2, player2, 1);
 playerDOM1.createGameboard();
 playerDOM2.createGameboard();
 
-playerDOM2.loop(player2.getGameboard());
+playerDOM2.loop(player1.getGameboard());
+
+dropPoint(playerDOM1);

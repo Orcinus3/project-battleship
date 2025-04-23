@@ -47,7 +47,6 @@ export const Gameboard = function (width, height) {
 
 	function placeShip(x, y, shipLength, direction) {
 		const ship = Ship(shipLength);
-
 		if (direction === "horizontal" && canBePlaced(x, y, shipLength, direction)) {
 			for (let i = x; i < shipLength + x; i++) {
 				map[i][y].ship = ship;
