@@ -1,4 +1,4 @@
-export const dropPoint = function (playerDOM) {
+export const makeDropPoint = function (playerDOM) {
 	const container = playerDOM.getContainer();
 	const gameboard = playerDOM.getGameboard();
 	const map = gameboard.getMap();
@@ -54,7 +54,7 @@ export const dropPoint = function (playerDOM) {
 	return container;
 };
 
-const draggable = function (shipContainer) {
+export const makeDraggable = function (shipContainer) {
 	shipContainer.addEventListener("dragstart", (event) => {
 		event.target.classList.add("draggable");
 	});
@@ -64,34 +64,28 @@ const draggable = function (shipContainer) {
 	});
 };
 
-function generateDraggable() {
-	const battleships = document.querySelector(".battleships");
-	const nShips = Math.round(Math.random() * 2) + 2;
-	let direction;
-	if (Math.round(Math.random()) === 0) {
-		direction = "vertical";
-	} else {
-		direction = "horizontal";
-	}
+//? DOM
 
-	const newShipContainer = document.createElement("div");
-	newShipContainer.draggable = true;
-	newShipContainer.classList.add("ship-container");
-	newShipContainer.classList.add(direction);
-	for (let i = 0; i < nShips; i++) {
-		const element = document.createElement("button");
-		element.classList.add("ship");
-		newShipContainer.appendChild(element);
-	}
+export function generateDraggable(shipLengths) {
+	for (let i = 0; i < shipLengths.length; i++) {
+		const battleships = document.querySelector(".battleships");
+		let direction = "horizontal";
+		/* if (Math.round(Math.random()) === 0) {
+			direction = "vertical";
+		} else {
+			direction = "horizontal";
+		} */
 
-	battleships.appendChild(newShipContainer);
+		const newShipContainer = document.createElement("div");
+		newShipContainer.draggable = true;
+		newShipContainer.classList.add("ship-container");
+		newShipContainer.classList.add(direction);
+		for (let j = 0; j < shipLengths[i]; j++) {
+			const element = document.createElement("button");
+			element.classList.add("ship");
+			newShipContainer.appendChild(element);
+		}
+
+		battleships.appendChild(newShipContainer);
+	}
 }
-generateDraggable();
-generateDraggable();
-generateDraggable();
-generateDraggable();
-const shipContainers = document.querySelectorAll(".ship-container");
-
-shipContainers.forEach((shipContainer) => {
-	draggable(shipContainer);
-});

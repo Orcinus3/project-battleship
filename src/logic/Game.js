@@ -3,11 +3,6 @@ import { Computer, Player } from "./Player";
 export const Game = function () {
 	const player1 = Player();
 	const player2 = Computer();
-	const gameboard1 = player1.getGameboard();
-	const gameboard2 = player2.getGameboard();
-
-	placeRandomShips(gameboard1, 4);
-	placeRandomShips(gameboard2, 4);
 
 	function getPlayer1() {
 		return player1;
@@ -17,17 +12,17 @@ export const Game = function () {
 		return player2;
 	}
 
-	function placeRandomShips(gameboard, amount) {
+	function placeRandomShips(gameboard, shipLengths) {
 		let counter = 0;
 		let shipCounter = 0;
 		let randomX;
 		let randomY;
 		let randomLength;
 		let randomDirection;
-		while (counter <= 2000 && shipCounter < amount) {
+		while (counter <= 2000 && shipCounter < shipLengths.length) {
 			randomX = Math.floor(Math.random() * 10);
 			randomY = Math.floor(Math.random() * 10);
-			randomLength = Math.floor(Math.random() * 5);
+			randomLength = shipLengths[shipCounter];
 
 			if (Math.round(Math.random()) === 0) {
 				randomDirection = "horizontal";
@@ -47,5 +42,5 @@ export const Game = function () {
 		}
 	}
 
-	return { getPlayer1, getPlayer2 };
+	return { getPlayer1, getPlayer2, placeRandomShips };
 };
