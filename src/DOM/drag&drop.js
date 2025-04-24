@@ -17,21 +17,17 @@ export const makeDropPoint = function (playerDOM) {
 
 	container.addEventListener("drop", (event) => {
 		const draggable = document.querySelector(".draggable");
-		console.log(draggable);
-		//console.log(event.target);
 
 		let selected;
 		for (let i = 0; i < map.length; i++) {
 			for (let j = 0; j < map.length; j++) {
 				if (map[i][j].element === event.target) {
-					console.log("FOUND ELEMENT");
 					console.log(map[i][j]);
 					selected = map[i][j];
 					break;
 				}
 			}
 		}
-		console.log("-----");
 		event.target.classList.remove("drop-zone");
 
 		const x = selected.x;
@@ -70,11 +66,6 @@ export function generateDraggable(shipLengths) {
 	for (let i = 0; i < shipLengths.length; i++) {
 		const battleships = document.querySelector(".battleships");
 		let direction = "horizontal";
-		/* if (Math.round(Math.random()) === 0) {
-			direction = "vertical";
-		} else {
-			direction = "horizontal";
-		} */
 
 		const newShipContainer = document.createElement("div");
 		newShipContainer.draggable = true;

@@ -95,9 +95,10 @@ export const ComputerDOM = function (container, computer, computerTurn) {
 	const gameboard = computer.getGameboard();
 	async function loop(enemyGameboard) {
 		while (true) {
-			await new Promise((resolve) => setTimeout(resolve, 1000));
+			await new Promise((resolve) => setTimeout(resolve, 50));
 			if (turn === computerTurn) {
 				console.log("computer's turn");
+				await new Promise((resolve) => setTimeout(resolve, 1000));
 				attackEnemy(enemyGameboard);
 			}
 		}
@@ -174,6 +175,7 @@ export const ComputerDOM = function (container, computer, computerTurn) {
 			console.log(attacked);
 			if (!attacked) {
 				tile.ship = false;
+				tile.element.removeEventListener("click", handleClick);
 				refreshGameboard();
 				return;
 			}

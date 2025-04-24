@@ -12,8 +12,10 @@ const game = Game();
 const player1 = game.getPlayer1();
 const player2 = game.getPlayer2();
 
-const container1 = document.createElement("div");
-const container2 = document.createElement("div");
+export const container1 = document.createElement("div");
+export const container2 = document.createElement("div");
+container2.style.display = "none";
+
 container1.classList.add("container");
 container1.classList.add("player1");
 container2.classList.add("container");
@@ -58,7 +60,7 @@ shipContainers.forEach((shipContainer) => {
 playerDOM1.createGameboard();
 playerDOM2.createGameboard();
 
-playerDOM2.loop(player1.getGameboard()); //? starts the computer
+playerDOM2.loop(player1.getGameboard()); //? starts attack loop of the computer
 
 makeDropPoint(playerDOM1);
 
