@@ -1,8 +1,7 @@
 import { turn } from "./DOM";
 
-const container = document.querySelector(".turn-container");
-
 export const TurnSign = function () {
+	const container = document.querySelector(".turn-container");
 	const sign = document.createElement("div");
 
 	async function checkTurn() {

@@ -1,9 +1,9 @@
 import { start, container2 } from "./DOM";
 import { TurnSign } from "./PostStartComponents";
 
-const buttonContainer = document.querySelector(".button-container");
-
 export function createStartBtn() {
+	const buttonContainer = document.querySelector(".button-container");
+
 	const battleships = document.querySelector(".battleships");
 	const button = document.createElement("button");
 	button.textContent = "START";
@@ -35,9 +35,10 @@ export function createStartBtn() {
 }
 
 export function changeDirectionBtn() {
+	const buttonContainer = document.querySelector(".button-container");
 	const shipContainers = document.querySelectorAll(".ship-container");
 	const button = document.createElement("button");
-	button.textContent = "CHANGE DIRECTION";
+	button.textContent = "ROTATE SHIPS";
 	buttonContainer.appendChild(button);
 	button.addEventListener("click", () => {
 		shipContainers.forEach((ship) => {

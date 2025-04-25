@@ -12,10 +12,12 @@ export const makeDropPoint = function (playerDOM) {
 	});
 
 	container.addEventListener("dragleave", (event) => {
+		event.preventDefault();
 		event.target.classList.remove("drop-zone");
 	});
 
 	container.addEventListener("drop", (event) => {
+		event.preventDefault();
 		const draggable = document.querySelector(".draggable");
 
 		let selected;
