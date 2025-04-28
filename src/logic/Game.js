@@ -2,7 +2,7 @@ import { Computer, Player } from "./Player";
 
 export const Game = function () {
 	const player1 = Player();
-	const player2 = Computer();
+	let player2 = Computer();
 
 	function getPlayer1() {
 		return player1;
@@ -42,5 +42,11 @@ export const Game = function () {
 		}
 	}
 
-	return { getPlayer1, getPlayer2, placeRandomShips };
+	function setVSHuman() {
+		player2 = Player();
+		console.log("VS HUMAN");
+		console.log(player2);
+	}
+
+	return { getPlayer1, getPlayer2, placeRandomShips, setVSHuman };
 };

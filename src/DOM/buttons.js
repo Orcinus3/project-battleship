@@ -1,5 +1,6 @@
-import { start, container2 } from "./DOM";
-import { TurnSign } from "./PostStartComponents";
+import { start, container1, container2 } from "./DOM";
+import { TurnSign } from "./turnDisplay";
+import { makeDraggable } from "./drag&drop";
 
 export function createStartBtn() {
 	const buttonContainer = document.querySelector(".button-container");
@@ -8,6 +9,7 @@ export function createStartBtn() {
 	const button = document.createElement("button");
 	button.textContent = "START";
 	buttonContainer.appendChild(button);
+	changeDirectionBtn();
 
 	button.addEventListener("click", () => {
 		if (battleships.children.length) {
@@ -18,7 +20,8 @@ export function createStartBtn() {
 		start();
 		removeStartingComps();
 		addPostStartComps();
-		container2.style.display = "block";
+		container1.style.display = "flex";
+		container2.style.display = "flex";
 		button.parentElement.removeChild(button);
 	});
 
@@ -51,4 +54,37 @@ export function changeDirectionBtn() {
 			}
 		});
 	});
+}
+
+export function createNextBtn() {
+	//? for 2 player mode
+	const buttonContainer = document.querySelector(".button-container");
+
+	const battleships = document.querySelector(".battleships");
+	const ships = battleships.innerHTML;
+	const button = document.createElement("button");
+	button.textContent = "NEXT";
+	buttonContainer.appendChild(button);
+	changeDirectionBtn();
+
+	button.addEventListener("click", () => {
+		if (battleships.children.length) {
+			alert("not enough ships");
+			return;
+		}
+
+		removeStartingComps();
+		container1.style.display = "none";
+		container2.style.display = "flex"; //! test flex and block
+		console.log("h");
+		createStartBtn();
+	});
+
+	function removeStartingComps() {
+		buttonContainer.innerHTML = "";
+		battleships.innerHTML = ships;
+		battleships.childNodes.forEach((ship) => {
+			makeDraggable(ship);
+		});
+	}
 }

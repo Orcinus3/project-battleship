@@ -11,6 +11,10 @@ export const PlayerDOM = function (container, player, playerTurn) {
 		return container;
 	}
 
+	function getTurn() {
+		return turn;
+	}
+
 	function createGameboard() {
 		const map = gameboard.getMap();
 		for (let j = 0; j < gameboard.getWidth(); j++) {
@@ -88,7 +92,7 @@ export const PlayerDOM = function (container, player, playerTurn) {
 		tile.element.addEventListener("click", handleClick);
 	}
 
-	return { createGameboard, getContainer, getGameboard, refreshGameboard };
+	return { createGameboard, getContainer, getGameboard, getTurn, refreshGameboard };
 };
 
 export const ComputerDOM = function (container, computer, computerTurn) {

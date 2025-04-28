@@ -102,6 +102,9 @@ body {
 	display: flex;
 	gap: 1rem;
 	flex-direction: column;
+	padding: 1rem 0;
+	align-items: center;
+	justify-content: center;
 }
 
 .start-container {
@@ -121,6 +124,16 @@ body {
 			padding: 0.5rem 2rem;
 			background-color: black;
 			color: white;
+
+			&:focus {
+				background-color: white;
+				color: black;
+			}
+		}
+
+		button:first-child {
+			margin: auto;
+			display: block;
 		}
 
 		button:hover {
@@ -132,9 +145,10 @@ body {
 }
 
 .containers {
-	width: 100%;
-	height: 100%;
+	width: fit-content;
+	height: fit-content;
 	display: flex;
+	align-items: center;
 	justify-content: center;
 	gap: 10%;
 }
@@ -172,10 +186,17 @@ body {
 	}
 }
 
-.player1 {
+.current-player1,
+.current-player2 {
+	transition: transform 300ms;
 }
 
-.player2 {
+.current-player1 {
+	box-shadow: 0 0 20px rgba(56, 153, 213, 0.7);
+}
+
+.current-player2 {
+	box-shadow: 0 0 20px rgba(244, 149, 33, 0.7);
 }
 
 .ship {
@@ -232,7 +253,7 @@ body {
 
 .drop-zone {
 	transition-duration: 0ms;
-	border: 4px solid grey;
+	background-color: grey;
 }
 
 .draggable {
